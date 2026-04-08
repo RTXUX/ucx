@@ -128,7 +128,7 @@ static int uct_gdaki_check_umem_dmabuf(const uct_ib_md_t *md)
     dmabuf = uct_cuda_copy_md_get_dmabuf((void*)buff, 1,
                                          UCS_SYS_DEVICE_ID_UNKNOWN);
 
-    umem_in.addr        = (void*)buff;
+    umem_in.addr        = (void*)0;
     umem_in.size        = 1;
     umem_in.access      = IBV_ACCESS_LOCAL_WRITE;
     umem_in.pgsz_bitmap = UINT64_MAX & ~(ucs_get_page_size() - 1);
@@ -216,6 +216,7 @@ uct_rc_gdaki_umem_reg(const uct_ib_md_t *md, struct ibv_context *ibv_context,
     if (dmabuf.fd != UCT_DMABUF_FD_INVALID) {
         umem_in.comp_mask = MLX5DV_UMEM_MASK_DMABUF;
         umem_in.dmabuf_fd = dmabuf.fd;
+        umem_in.addr = (void*)dmabuf.offset;
     }
 
     umem = mlx5dv_devx_umem_reg_ex(ibv_context, &umem_in);
