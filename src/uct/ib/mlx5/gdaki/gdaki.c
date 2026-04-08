@@ -174,7 +174,7 @@ static int uct_gdaki_is_dmabuf_supported(const uct_ib_md_t *md)
         ucs_log(loglevel, "CUDA doesn't support DMA-BUF");
     } else if (!uct_gdaki_check_umem_dmabuf(md)) {
         dmabuf_supported = 0;
-        ucs_log(loglevel, "DEVX UMEM doesn't support DMA-BUF");
+        ucs_log(loglevel, "E: DEVX UMEM doesn't support DMA-BUF");
     } else {
         dmabuf_supported = 1;
     }
