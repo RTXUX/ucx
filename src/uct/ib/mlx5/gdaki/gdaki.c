@@ -137,7 +137,7 @@ static int uct_gdaki_check_umem_dmabuf(const uct_ib_md_t *md)
 
     umem = mlx5dv_devx_umem_reg_ex(md->dev.ibv_context, &umem_in);
     if (umem == NULL) {
-        ucs_log(UCS_LOG_LEVEL_DIAG, "DEVX UMEM registration with DMA-BUF failed: %d, %d", errno, umem_in.pgsz_bitmap);
+        ucs_log(UCS_LOG_LEVEL_DIAG, "DEVX UMEM registration with DMA-BUF failed: %d, %lu", errno, umem_in.pgsz_bitmap);
         status = UCS_ERR_NO_MEMORY;
         goto out_free;
     }
